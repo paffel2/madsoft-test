@@ -1,0 +1,2 @@
+class MemeDoesntExist(Exception):
+    pass

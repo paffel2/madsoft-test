@@ -1,0 +1,9 @@
+fastapi
+asyncio
+pydantic
+pydantic_settings
+psycopg2
+asyncpg
+sqlalchemy
+sqlalchemy[asyncio]
+alembic

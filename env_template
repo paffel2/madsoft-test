@@ -1,0 +1,8 @@
+DB_HOST=localhost
+DB_PORT=5432
+DB_USER=postgres
+DB_PASS=123
+DB_NAME=memes_table
+SECRET_KEY=secret
+PAGE_SIZE=10
+DOMAIN_NAME=http://localhost:8000
