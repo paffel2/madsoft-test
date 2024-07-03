@@ -7,3 +7,8 @@ asyncpg
 sqlalchemy
 sqlalchemy[asyncio]
 alembic
+minio
+python-multipart
+miniopy_async
+aiohttp
+httpx
