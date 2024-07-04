@@ -19,6 +19,14 @@ async def meme_doesnt_exist(request, exc):
     )
 
 
+@app.exception_handler(S3NotWorking)
+async def meme_doesnt_exist(request, exc):
+    return JSONResponse(
+        {"message": "error", "content": "s3 doesn't working"},
+        status_code=400,
+    )
+
+
 if __name__ == "__main__":
 
     uvicorn.run(app, host="127.0.0.1", port=8000)

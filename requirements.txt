@@ -12,3 +12,9 @@ python-multipart
 miniopy_async
 aiohttp
 httpx
+pytest
+anyio
+pytest-asyncio
+pytest-tornasync
+pytest-trio
+pytest-twisted
