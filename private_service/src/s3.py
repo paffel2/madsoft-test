@@ -13,7 +13,7 @@ client = Minio(
 async def create_bucket():
     is_exist = await client.bucket_exists("memes")
     if not is_exist:
-        client.make_bucket("memes")
+        await client.make_bucket("memes")
 
 
 loop = asyncio.get_event_loop()

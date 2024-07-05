@@ -16,7 +16,6 @@ class Memes:
         session.add(meme)
 
         await session.flush()
-        # await session.commit()
         await session.refresh(meme)
         return meme.id
 
@@ -56,7 +55,6 @@ class Memes:
         if meme:
             meme.name = new_name
             await session.flush()
-            # await session.commit()
             await session.refresh(meme)
             return meme
         else:
@@ -66,7 +64,6 @@ class Memes:
     async def delete_meme(session: AsyncSession, meme_id: int):
         query = delete(Meme).where(Meme.id == meme_id)
         result = await session.execute(query)
-        # await session.commit()
         if result.rowcount == 1:
             return None
         raise MemeDoesntExist()

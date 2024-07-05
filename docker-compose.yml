@@ -1,0 +1,54 @@
+version: "3.9"
+
+services:
+  server_database:
+    image: postgres:15
+    container_name: server_database
+    volumes:
+      - ~/server_database:/var/lib/postgresql/data
+    env_file:
+    - .env
+    ports:
+    -  5433:5432
+
+  public_service:
+    build:
+      dockerfile: public_service/Dockerfile
+      context: .
+    container_name: public_service
+    depends_on:
+      - server_database
+    env_file:
+      - .env
+    command: >
+      bash -c "pytest && alembic upgrade head && python3 public_service/src/main.py"
+    ports:
+    - 8000:8000
+
+  minio:
+    image: minio/minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - ~/minio_data:/data
+    env_file:
+      - .env
+    environment:
+      MINIO_ROOT_USER: ${S3_ACCESS_KEY}
+      MINIO_ROOT_PASSWORD: ${S3_SECRET_KEY}
+    command: server --console-address ":9001" /data
+  
+  private_service:
+    build:
+      dockerfile: private_service/Dockerfile
+      context: .
+    container_name: private_service
+    depends_on:
+      - minio
+    env_file:
+      - .env
+    command: >
+      bash -c "python3 private_service/src/main.py"
+    ports:
+    - 8001:8001
